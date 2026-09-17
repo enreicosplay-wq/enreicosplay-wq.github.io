@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy Survival · William Wong</title>
+<meta name="description" content="Fantasy Survival: a mobile survivors-like. Character art, the enemy roster and the skill icon set.">
+<meta property="og:title" content="Fantasy Survival · William Wong">
+<meta property="og:description" content="A mobile survivors-like. Character art, the enemy roster and the skill icon set.">
+<meta property="og:image" content="assets/work/fs-select-t.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23bf4019'/><text x='16' y='23' font-size='20' font-family='sans-serif' font-weight='bold' fill='%23f3f0e9' text-anchor='middle'>W</text></svg>">
+<style>
+:root{
+  --paper:#f3f0e9;--paper-2:#e9e5db;--card:#fdfcfa;
+  --ink:#15181c;--ink-2:#474e57;--ink-3:#7d848e;
+  --line:#d8d2c6;--line-2:#c2bbab;--accent:#bf4019;--accent-soft:#f6e6df;--dark:#15181c;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:"Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 34px}
+
+header{position:sticky;top:0;z-index:50;background:rgba(243,240,233,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 0}
+.bar b{font-size:17px;font-weight:800}
+.bar a.back{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+.bar a.back:hover{color:var(--accent);border-color:var(--accent)}
+
+.hero{background:var(--dark);color:#f1ede6;padding:52px 0 48px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none;
+  background-image:linear-gradient(#5d6570 1px,transparent 1px),linear-gradient(90deg,#5d6570 1px,transparent 1px);
+  background-size:58px 58px;mask-image:radial-gradient(ellipse 70% 90% at 82% 50%,#000,transparent 72%)}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:36px;align-items:center}
+.hero .wrap > *{min-width:0}
+.hero .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#e8a06a}
+.hero h1{font-size:clamp(30px,5.2vw,50px);font-weight:800;letter-spacing:-.025em;line-height:1.04;margin:12px 0 14px}
+.hero p{color:#b3bac3;max-width:56ch;font-size:16px}
+.mob{display:flex;gap:16px;justify-content:flex-end;align-items:flex-end}
+.mob img{image-rendering:pixelated;height:104px;width:auto}
+.facts{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px;padding-top:18px;border-top:1px solid #2b3038;grid-column:1/-1}
+.facts div{font-family:var(--mono);font-size:10px;color:#88919c;letter-spacing:.14em;text-transform:uppercase}
+.facts div b{display:block;color:#f1ede6;font-size:14px;letter-spacing:0;text-transform:none;margin-top:4px;font-family:var(--sans);font-weight:600}
+
+main{padding:58px 0 90px}
+.sec{margin-bottom:60px}
+.sec-head{display:flex;align-items:baseline;gap:15px;margin-bottom:12px}
+.sec-head .n{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.sec-head h2{font-size:25px;font-weight:800;letter-spacing:-.015em}
+.sec-head .ln{flex:1;height:1px;background:var(--line)}
+.lede{color:var(--ink-2);max-width:74ch;margin-bottom:24px;font-size:15.5px}
+p{color:var(--ink-2);margin-bottom:12px}
+p b,li b{color:var(--ink)}
+h3{font-size:17px;font-weight:700;margin:32px 0 6px}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.cols h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.cols p,.cols li{font-size:14.5px}
+ul{list-style:none}
+li{position:relative;padding-left:15px;margin-bottom:7px;color:var(--ink-2);font-size:14.5px}
+li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;background:var(--accent);transform:rotate(45deg)}
+
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.feat{background:var(--card);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.feat .ph{display:block;cursor:zoom-in;overflow:hidden;border-bottom:1px solid var(--line);position:relative}
+.feat .ph img{width:100%;height:190px;object-fit:cover;object-position:center top;display:block;background:#1a1512}
+.feat .ph img.fit{object-fit:contain;padding:12px 10px}
+.feat .ph::after{content:"View";position:absolute;right:9px;bottom:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(21,24,28,.82);color:#fff;padding:4px 8px;opacity:0;transition:opacity .25s}
+.feat .ph:hover::after{opacity:1}
+.feat .txt{padding:17px 19px 19px}
+.feat .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+.feat h4{font-size:16px;font-weight:700;margin-bottom:6px}
+.feat p{font-size:13.5px;margin-bottom:0}
+
+/* sprite strip */
+.strip{display:flex;flex-wrap:wrap;gap:10px;background:#1a1512;border:1px solid var(--line);padding:18px;align-items:flex-end;justify-content:center}
+.strip figure{text-align:center}
+.strip img{image-rendering:pixelated;height:96px;width:auto;margin:0 auto}
+.strip figcaption{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8a8078;margin-top:8px}
+
+.fam{background:#1a1512;border:1px solid var(--line);padding:14px;margin-top:10px}
+.fam img{width:100%;height:auto;image-rendering:pixelated}
+.famrow{margin-bottom:22px}
+.famrow h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.famrow p{font-size:13.5px;margin-bottom:0}
+
+.note{font-size:14px;color:var(--ink-2);margin-top:14px;padding-left:14px;border-left:2px solid var(--accent);max-width:80ch}
+
+#lb{position:fixed;inset:0;z-index:200;background:rgba(16,18,21,.94);display:none;
+    align-items:center;justify-content:center;padding:26px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lb .cap{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:#cfd4da;
+         font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+
+footer{border-top:1px solid var(--line);padding:32px 0}
+footer p{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.13em;text-transform:uppercase}
+
+@media(max-width:760px){ .hero .wrap{grid-template-columns:1fr} .mob{justify-content:flex-start} }
+@media(max-width:560px){
+  body{overflow-x:hidden}
+  .wrap{padding:0 18px}
+  .hero{padding:38px 0 34px}
+  .hero h1{font-size:27px}
+  main{padding:40px 0 60px}
+  .sec{margin-bottom:44px}
+  .sec-head h2{font-size:20px}
+  .strip img{height:76px}
+}
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><div class="bar">
+  <b>William Wong</b>
+  <a class="back" href="index.html">&larr; All projects</a>
+</div></div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="k">Mobile &nbsp;&middot;&nbsp; Free to play</div>
+    <h1>Fantasy Survival</h1>
+    <p>A mobile survivors-like that I worked on with colleagues. The player chooses a character,
+       avoids enemy waves and builds up skills during the run. I was mainly responsible for the
+       playable characters, the complete enemy roster and variants, and the skill icons.</p>
+  </div>
+  <div class="mob">
+    <img src="assets/art/fs-dog.gif" alt="Dogge">
+    <img src="assets/art/fs-ninetail.gif" alt="Ninetail">
+    <img src="assets/art/fs-slime.gif" alt="Slime">
+  </div>
+  <div class="facts">
+    <div>Role<b>Character art, enemies, skill icons</b></div>
+    <div>Team<b>With colleagues</b></div>
+    <div>Engine<b>Unity</b></div>
+    <div>Platform<b>Mobile</b></div>
+  </div>
+</div></div>
+
+<main><div class="wrap">
+
+<!-- ============ 01 SUMMARY ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">01</span><h2>Summary and involvement</h2><span class="ln"></span></div>
+  <p class="lede">Because this type of game can place many enemies on a phone screen at once,
+     I needed the characters and enemies to stay readable at a small size. I focused on clear
+     shapes, recognisable colours and animation that still worked when several sprites overlapped.</p>
+
+  <div class="cols">
+    <div>
+      <h4>What I made</h4>
+      <ul>
+        <li>Playable characters and their animation</li>
+        <li>The enemy roster and every tier variant of it</li>
+        <li>The skill icon set</li>
+      </ul>
+      <p style="font-size:13.5px;margin-top:10px">The interface itself was a team effort;
+         what is mine inside it are the icons and every sprite on screen.</p>
+    </div>
+    <div>
+      <h4>How the roster reads</h4>
+      <p>The characters have different health, movement speed and starting skills.
+         <b>Dogge</b> is a balanced melee character, <b>Ninetail</b> uses damaging orbs, and
+         <b>Laserbun</b> has very low health but high speed and a piercing beam.</p>
+    </div>
+    <div>
+      <h4>The constraint that shaped it</h4>
+      <p>A detailed enemy may look good by itself but become difficult to read inside a crowd.
+         I kept the shapes and palettes clear so players could still identify an enemy while
+         moving and watching the rest of the screen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 02 UI ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">02</span><h2>In the game</h2><span class="ln"></span></div>
+  <div class="feats">
+    <div class="feat">
+      <a class="ph" href="assets/work/fs-menu.jpg" data-cap="Main menu">
+        <img src="assets/work/fs-menu-t.jpg" alt="Main menu" loading="lazy"></a>
+      <div class="txt"><span class="tag">In game</span><h4>Main menu</h4>
+        <p>Laserbun shown standing in the world rather than on a flat plate. Character art mine, screen built by the team.</p></div>
+    </div>
+    <div class="feat">
+      <a class="ph" href="assets/work/fs-select.jpg" data-cap="Character select">
+        <img src="assets/work/fs-select-t.jpg" alt="Character select" loading="lazy"></a>
+      <div class="txt"><span class="tag">In game</span><h4>Character select</h4>
+        <p>Where the roster is read side by side. Dogge, the portraits and the skill icon are mine; the layout is the team&rsquo;s.</p></div>
+    </div>
+    <div class="feat">
+      <a class="ph" href="assets/work/fs-draft.jpg" data-cap="Level-up draft">
+        <img src="assets/work/fs-draft-t.jpg" alt="Level-up draft" loading="lazy"></a>
+      <div class="txt"><span class="tag">In game</span><h4>Level-up draft</h4>
+        <p>The player chooses from three upgrades during a run. I designed the skill icons to stay clear at this small size and be recognised quickly.</p></div>
+    </div>
+    <div class="feat">
+      <a class="ph" href="assets/work/fs-icons.jpg" data-cap="Skill icon set">
+        <img class="fit" src="assets/work/fs-icons-t.jpg" alt="Skill icons" loading="lazy"></a>
+      <div class="txt"><span class="tag">Art</span><h4>Skill icon set</h4>
+        <p>One icon per ability, each keyed to its own colour so a skill is identifiable mid-swarm.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 03 PIXEL ART ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">03</span><h2>Pixel art</h2><span class="ln"></span></div>
+  <p class="lede">Every character and enemy is a hand-animated sprite sheet. These are running
+     at their authored frame rates.</p>
+
+  <div class="strip">
+    <figure><img src="assets/art/fs-dog.gif" alt="Dogge"><figcaption>Dogge</figcaption></figure>
+    <figure><img src="assets/art/fs-ninetail.gif" alt="Ninetail"><figcaption>Ninetail</figcaption></figure>
+    <figure><img src="assets/art/fs-slime.gif" alt="Slime"><figcaption>Slime</figcaption></figure>
+    <figure><img src="assets/art/fs-bee.gif" alt="Bee"><figcaption>Bee</figcaption></figure>
+    <figure><img src="assets/art/fs-boar.gif" alt="Boar"><figcaption>Boar</figcaption></figure>
+    <figure><img src="assets/art/fs-specter.gif" alt="Specter"><figcaption>Specter</figcaption></figure>
+    <figure><img src="assets/art/fs-flame.gif" alt="Flame elemental"><figcaption>Elemental</figcaption></figure>
+    <figure><img src="assets/art/fs-golem-gold.gif" alt="Golem"><figcaption>Golem</figcaption></figure>
+  </div>
+
+  <h3>Enemy variants</h3>
+  <p>The game needed several enemy tiers, but making a completely new animation set for every
+     tier would have taken too long. I created enemy families that could support recolours and
+     small design changes, then used a larger redesign when an enemy needed to feel clearly different.</p>
+
+  <div class="famrow" style="margin-top:20px">
+    <h4>Slime &middot; eight variants</h4>
+    <p>The basic tiers use different colours. The elite version has a crown because changing
+       the silhouette makes it easier to notice than another recolour would.</p>
+    <div class="fam"><img src="assets/art/fs-fam-slime.gif" alt="Eight slime variants animating"></div>
+  </div>
+
+  <div class="famrow">
+    <h4>Elemental &middot; six variants</h4>
+    <p>These six enemies use the same basic body with different elemental palettes and effects.
+       This keeps them related while still giving each variant its own identity.</p>
+    <div class="fam"><img src="assets/art/fs-fam-elemental.gif" alt="Six elemental variants animating"></div>
+  </div>
+
+  <div class="famrow">
+    <h4>Golem &middot; three variants</h4>
+    <p>The golem uses a longer nine-frame cycle. I slowed the movement and gave the body more
+       rise and fall so it would feel heavier than the smaller enemies.</p>
+    <div class="fam"><img src="assets/art/fs-fam-golem.gif" alt="Three golem variants animating"></div>
+  </div>
+
+  <div class="famrow">
+    <h4>Bee &middot; three recolours</h4>
+    <p>These three tiers share one animation sheet and use different palettes. They did not need
+       separate animations because they were still meant to behave like the same enemy.</p>
+    <div class="fam"><img src="assets/art/fs-fam-bee.gif" alt="Three bee variants animating"></div>
+  </div>
+
+  <div class="famrow">
+    <h4>Boar &middot; four recolours and a horn change</h4>
+    <p>The stronger versions change the horns as well as the colour. The head is the clearest
+       part of a charging boar, so that is where I placed the extra detail.</p>
+    <div class="fam"><img src="assets/art/fs-fam-boar.gif" alt="Five boar variants animating"></div>
+  </div>
+
+  <div class="famrow">
+    <h4>Specter &middot; the bee redesign, then recoloured again</h4>
+    <p>This started as a redesign of the bee when a recolour was no longer enough. I changed the
+       body, wings and animation so it read as a new enemy, then made additional colour variants from it.</p>
+    <div class="fam"><img src="assets/art/fs-fam-specter.gif" alt="Three specter variants animating"></div>
+  </div>
+
+  <div class="note">
+    <b>I used recolours when the enemy was meant to feel like a stronger version of the same thing.</b>
+    I changed the silhouette when it needed to look like a different threat. This gave the game
+    more enemy variety while keeping the amount of new animation work manageable.
+  </div>
+</div>
+
+</div></main>
+
+<div id="lb"><img alt=""><div class="cap"></div></div>
+
+<footer><div class="wrap"><p>Fantasy Survival &middot; William Wong &middot; 2026</p></div></footer>
+
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img'), cap=lb.querySelector('.cap');
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('.feat .ph');
+    if(a){ e.preventDefault(); im.src=a.getAttribute('href'); cap.textContent=a.dataset.cap||''; lb.classList.add('on'); return; }
+    if(e.target.closest && e.target.closest('#lb')) lb.classList.remove('on');
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+})();
+</script>
+</body>
+</html>
+

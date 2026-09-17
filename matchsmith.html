@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MatchSmith · William Wong</title>
+<meta name="description" content="MatchSmith: a blacksmith roguelite where a match-3 board fills customer commissions. Design, systems, economy and art.">
+<meta property="og:title" content="MatchSmith · William Wong">
+<meta property="og:description" content="A blacksmith roguelite where a match-3 board fills customer commissions.">
+<meta property="og:image" content="assets/work/ms-forge-t.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23bf4019'/><text x='16' y='23' font-size='20' font-family='sans-serif' font-weight='bold' fill='%23f3f0e9' text-anchor='middle'>W</text></svg>">
+<style>
+:root{
+  --paper:#f3f0e9;--paper-2:#e9e5db;--card:#fdfcfa;
+  --ink:#15181c;--ink-2:#474e57;--ink-3:#7d848e;
+  --line:#d8d2c6;--line-2:#c2bbab;--accent:#bf4019;--accent-soft:#f6e6df;--dark:#15181c;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:"Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 34px}
+
+header{position:sticky;top:0;z-index:50;background:rgba(243,240,233,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 0}
+.bar b{font-size:17px;font-weight:800}
+.bar a.back{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+.bar a.back:hover{color:var(--accent);border-color:var(--accent)}
+
+.hero{background:var(--dark);color:#f1ede6;padding:56px 0 52px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none;
+  background-image:linear-gradient(#5d6570 1px,transparent 1px),linear-gradient(90deg,#5d6570 1px,transparent 1px);
+  background-size:58px 58px;mask-image:radial-gradient(ellipse 70% 90% at 82% 50%,#000,transparent 72%)}
+.hero .wrap{position:relative;z-index:1}
+.hero .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#e8a06a}
+.hero h1{font-size:clamp(32px,5.6vw,54px);font-weight:800;letter-spacing:-.025em;line-height:1.04;margin:12px 0 14px}
+.hero p{color:#b3bac3;max-width:62ch;font-size:16.5px}
+.facts{display:flex;flex-wrap:wrap;gap:30px;margin-top:28px;padding-top:20px;border-top:1px solid #2b3038}
+.facts div{font-family:var(--mono);font-size:10px;color:#88919c;letter-spacing:.14em;text-transform:uppercase}
+.facts div b{display:block;color:#f1ede6;font-size:14px;letter-spacing:0;text-transform:none;margin-top:4px;font-family:var(--sans);font-weight:600}
+
+main{padding:60px 0 90px}
+.sec{margin-bottom:62px}
+.sec-head{display:flex;align-items:baseline;gap:15px;margin-bottom:12px}
+.sec-head .n{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.sec-head h2{font-size:25px;font-weight:800;letter-spacing:-.015em}
+.sec-head .ln{flex:1;height:1px;background:var(--line)}
+.lede{color:var(--ink-2);max-width:74ch;margin-bottom:24px;font-size:15.5px}
+p{color:var(--ink-2);margin-bottom:12px}
+p b,li b{color:var(--ink)}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.cols h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.cols p,.cols li{font-size:14.5px}
+ul{list-style:none}
+li{position:relative;padding-left:15px;margin-bottom:7px;color:var(--ink-2);font-size:14.5px}
+li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;background:var(--accent);transform:rotate(45deg)}
+
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.feat{background:var(--card);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.feat .ph{display:block;cursor:zoom-in;overflow:hidden;border-bottom:1px solid var(--line);position:relative}
+.feat .ph img{width:100%;height:300px;object-fit:cover;object-position:center top;display:block;background:#1b1512}
+.feat .ph::after{content:"View";position:absolute;right:9px;bottom:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(21,24,28,.82);color:#fff;padding:4px 8px;opacity:0;transition:opacity .25s}
+.feat .ph:hover::after{opacity:1}
+.feat .txt{padding:18px 20px 20px}
+.feat .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+.feat h4{font-size:16.5px;font-weight:700;margin-bottom:6px}
+.feat p{font-size:13.5px;margin-bottom:0}
+.feat .why{margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.feat .why b{color:var(--accent);font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:3px}
+
+.pipe{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:stretch}
+.pipe .box{background:var(--paper-2);border:1px solid var(--line);padding:20px;overflow-x:auto}
+.pipe .box h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.pipe .arrow{display:grid;place-items:center;font-size:22px;color:var(--accent)}
+.code{font-family:var(--mono);font-size:12px;color:var(--ink-2);line-height:1.9;white-space:nowrap}
+.code b{color:var(--ink)}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--card);margin:16px 0 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:600px}
+caption{text-align:left;padding:15px 17px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--line);background:var(--paper-2)}
+caption b{color:var(--ink)}
+th,td{padding:9px 13px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left;font-weight:600}
+thead th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);background:var(--paper-2)}
+tbody tr:hover{background:var(--accent-soft)}
+td.hi{color:var(--accent);font-weight:700}
+td.lo{color:var(--ink-3)}
+td.l{text-align:left;font-weight:400;color:var(--ink-2)}
+.note{font-size:14px;color:var(--ink-2);margin-top:14px;padding-left:14px;border-left:2px solid var(--accent);max-width:80ch}
+
+.step{background:var(--card);border:1px solid var(--line);padding:20px 22px;margin-bottom:14px}
+.step h4{font-size:16px;font-weight:700;margin-bottom:6px}
+.step h4 span{font-family:var(--mono);font-size:11px;color:var(--accent);margin-right:9px}
+.step p:last-child{margin-bottom:0}
+
+#lb{position:fixed;inset:0;z-index:200;background:rgba(16,18,21,.94);display:none;
+    align-items:center;justify-content:center;padding:26px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lb .cap{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:#cfd4da;
+         font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+
+footer{border-top:1px solid var(--line);padding:32px 0}
+footer p{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.13em;text-transform:uppercase}
+
+@media(max-width:760px){ .pipe{grid-template-columns:1fr} .pipe .arrow{transform:rotate(90deg)} }
+@media(max-width:560px){
+  body{overflow-x:hidden}
+  .wrap{padding:0 18px}
+  .hero{padding:40px 0 38px}
+  .hero h1{font-size:28px}
+  .facts{gap:18px}
+  main{padding:42px 0 60px}
+  .sec{margin-bottom:44px}
+  .sec-head h2{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><div class="bar">
+  <b>William Wong</b>
+  <a class="back" href="index.html">&larr; All projects</a>
+</div></div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="k">Mobile Roguelite &nbsp;&middot;&nbsp; Godot 4 &nbsp;&middot;&nbsp; Solo</div>
+  <h1>MatchSmith</h1>
+  <p>A blacksmith roguelite where matching pieces improve the Power, Durability and Sharpness
+     of a weapon. You are not only trying to clear the board. You are trying to make the best
+     weapon you can for a customer before running out of moves.</p>
+  <div class="facts">
+    <div>Role<b>Design, systems, UI/UX, art</b></div>
+    <div>Team<b>Solo</b></div>
+    <div>Engine<b>Godot 4</b></div>
+    <div>Platform<b>Mobile</b></div>
+  </div>
+</div></div>
+
+<main><div class="wrap">
+
+<!-- ============ 01 SUMMARY ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">01</span><h2>Summary and involvement</h2><span class="ln"></span></div>
+  <p class="lede">Each customer gives you three weapon requirements and a move limit. Matching
+     pieces raises those stats, but simply passing the requirement only gives you a Standard
+     result. The better you do and the fewer moves you use, the better the finished weapon becomes.</p>
+
+  <div class="cols">
+    <div>
+      <h4>The loop</h4>
+      <p>A run contains five customer orders. For each one you choose an order, forge the weapon,
+         receive the result and then visit the shop. Gold is used during the run, while Renown
+         is kept between runs for permanent progression.</p>
+    </div>
+    <div>
+      <h4>What I did</h4>
+      <ul>
+        <li>Design document, run structure and economy</li>
+        <li>Quality, scoring, upgrade and relationship systems</li>
+        <li>UI and UX across every screen</li>
+        <li>Characters, icons and visual direction</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Why the board has stakes</h4>
+      <p>Passing the requirements is only the minimum. You can keep matching to improve the
+         quality, but unused moves also have value. I wanted the player to decide when the
+         weapon is good enough instead of always using every move automatically.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 02 FEATURES ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">02</span><h2>Features</h2><span class="ln"></span></div>
+  
+
+  <div class="feats">
+
+    <div class="feat">
+      <a class="ph" href="assets/work/ms-forge.jpg" data-cap="The forge board mid-cascade">
+        <img src="assets/work/ms-forge-t.jpg" alt="The forge match-3 board" loading="lazy"></a>
+      <div class="txt">
+        <span class="tag">Core verb</span>
+        <h4>Each piece does a different job</h4>
+        <p>Swords, shields and hammers raise one weapon stat each. Tongs raise all three, while
+           flame adds more points to whichever stat is currently the lowest.</p>
+      </div>
+    </div>
+
+    <div class="feat">
+      <a class="ph" href="assets/work/ms-forge2.jpg" data-cap="Moves remaining and the END FORGE call">
+        <img src="assets/work/ms-forge2-t.jpg" alt="Forge board with move counter" loading="lazy"></a>
+      <div class="txt">
+        <span class="tag">Resource</span>
+        <h4>You decide when to stop forging</h4>
+        <p>Every order has a limited number of moves, but you can finish early. Extra moves help
+           with rewards and the highest quality tier, so pushing for one more match can also cost you.</p>
+      </div>
+    </div>
+
+    <div class="feat">
+      <a class="ph" href="assets/work/ms-order.jpg" data-cap="Order select: branching commissions with risk tiers">
+        <img src="assets/work/ms-order-t.jpg" alt="Order select screen" loading="lazy"></a>
+      <div class="txt">
+        <span class="tag">Run structure</span>
+        <h4>Choose which customer to help</h4>
+        <p>You choose between orders with different requirements, rewards and risks. This also
+           affects which customer relationship you are improving or possibly disappointing.</p>
+      </div>
+    </div>
+
+    <div class="feat">
+      <a class="ph" href="assets/work/ms-home.jpg" data-cap="The workshop hub between runs">
+        <img src="assets/work/ms-home-t.jpg" alt="Workshop hub" loading="lazy"></a>
+      <div class="txt">
+        <span class="tag">Meta</span>
+        <h4>Progress the workshop between runs</h4>
+        <p>The workshop holds your blueprint archive, customer ledger, weapon hall and permanent
+           upgrades. These use Renown so progress between runs is kept separate from the gold used inside a run.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ 03 DESIGN NOTES ============ -->
+<div class="sec">
+  <div class="sec-head"><span class="n">03</span><h2>Design notes</h2><span class="ln"></span></div>
+
+  <h3 style="font-size:17px;font-weight:700;margin:0 0 6px">Quality depends on how much better you did</h3>
+  <p>Meeting every requirement gives a Standard result. Going beyond the requirements moves the
+     weapon into higher quality tiers. Legendary also requires moves left over, so the best result
+     comes from both strong matches and using those matches efficiently.</p>
+  <div class="tbl">
+    <table>
+      <caption><b>Quality tiers.</b> The multiplier applies to the order&rsquo;s gold reward.</caption>
+      <thead><tr><th>Tier</th><th class="l">Condition</th><th>Multiplier</th></tr></thead>
+      <tbody>
+        <tr><td>Failed</td><td class="l">Any required stat unmet</td><td class="lo">0.5&times;</td></tr>
+        <tr><td>Standard</td><td class="l">All met, low surplus</td><td>1.0&times;</td></tr>
+        <tr><td>Fine</td><td class="l">Moderate surplus</td><td>1.5&times;</td></tr>
+        <tr><td>Masterwork</td><td class="l">High surplus</td><td>2.25&times;</td></tr>
+        <tr><td>Legendary</td><td class="l">Very high surplus <b>and</b> moves left over</td><td class="hi">3.0&times;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:17px;font-weight:700;margin:36px 0 6px">The pieces</h3>
+  <div class="tbl" style="margin-top:8px">
+    <table>
+      <caption><b>Tile effects.</b> Three tiles do the obvious thing. Two do not.</caption>
+      <thead><tr><th>Tile</th><th class="l">Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Red sword</td><td class="l">+10 Power</td></tr>
+        <tr><td>Blue shield</td><td class="l">+10 Durability</td></tr>
+        <tr><td>Yellow hammer</td><td class="l">+10 Sharpness</td></tr>
+        <tr><td>Green tongs</td><td class="l">+4 to all three: more total, less aimed</td></tr>
+        <tr><td>Purple flame</td><td class="l"><b>+15 to whichever stat is lowest</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    The flame helps fix whichever stat has fallen behind. It is very useful when the weapon is
+    uneven, but less useful when all three stats are already close. Its value changes during the forge.
+  </div>
+
+  <h3 style="font-size:17px;font-weight:700;margin:36px 0 6px">Customers remember your usual standard</h3>
+  <p>Every customer has a favour score and an expectation based on the weapons you previously
+     made for them. They react to whether the new weapon is better or worse than what they have
+     come to expect from you, and that result changes their expectation for the next order.</p>
+
+  <div class="pipe" style="margin-top:14px">
+    <div class="box">
+      <h5>The rule</h5>
+      <div class="code">
+        favor += BASE + (delivered &minus; expected) &times; K<br>
+        expected &rarr; drifts toward delivered
+      </div>
+    </div>
+    <div class="arrow">&rarr;</div>
+    <div class="box">
+      <h5>The consequence</h5>
+      <p style="font-size:14.5px;margin-bottom:0"><b>Your best work eventually becomes normal.</b>
+         If you keep giving a customer Masterwork weapons, they begin to expect that quality.
+         Maintaining a long relationship therefore becomes harder than making a good first impression.</p>
+    </div>
+  </div>
+
+  <ul style="margin-top:18px">
+    <li>Standing runs from 0 to 100 across five tiers. It mainly changes how warmly a customer speaks to you instead of giving a combat advantage.</li>
+    <li>Hit zero and the customer <b>leaves the order pool entirely</b>. Winning them back costs renown.</li>
+    <li>Winning someone back also resets their expectation, so the relationship can begin again instead of returning at the same difficulty.</li>
+  </ul>
+</div>
+
+</div></main>
+
+<div id="lb"><img alt=""><div class="cap"></div></div>
+
+<footer><div class="wrap"><p>MatchSmith &middot; William Wong &middot; 2026</p></div></footer>
+
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img'), cap=lb.querySelector('.cap');
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('.feat .ph');
+    if(a){ e.preventDefault(); im.src=a.getAttribute('href'); cap.textContent=a.dataset.cap||''; lb.classList.add('on'); return; }
+    if(e.target.closest && e.target.closest('#lb')) lb.classList.remove('on');
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+})();
+</script>
+</body>
+</html>
+
